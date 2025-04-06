@@ -9,28 +9,26 @@ const db = require("./Backend/models/");
 // Importo las relaciones
 require("./Backend/models/relation");
 
-// Configuración de las vistas (donde están los archivos .ejs)
-app.set("views", path.join(__dirname, "Frontend", "pages", "views"));
-
 // Establecer EJS como motor de plantillas
 app.set("view engine", "ejs");
+
+// Configuración de las vistas 
+app.set("views", path.join(__dirname, "Frontend", "pages", "views"));
+
+
 
 // Middleware para parsear datos del cuerpo
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Servir archivos estáticos (CSS y JS)
-app.use("/css",
-  express.static(path.join(__dirname, "Frontend", "public", "css"))
-);
-app.use("/js",
-  express.static(path.join(__dirname, "Frontend", "public", "js"))
-);
+app.use("/css",express.static(path.join(__dirname, "Frontend", "public", "css")));
+app.use("/js",express.static(path.join(__dirname, "Frontend", "public", "js")));
 
-// Ruta para renderizar la página principal
-app.get("/", (req, res) => {
-  res.render("index", { title: "Express" }); // Renderizar index.ejs
-});
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
+
 
 db.sequelize.sync({
     force: false,
