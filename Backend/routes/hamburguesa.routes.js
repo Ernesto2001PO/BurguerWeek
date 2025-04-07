@@ -3,8 +3,8 @@ module.exports = (app) => {
     const controller = require("../controllers/hamburguesa.controller");
 
     // Rutas para hamburguesas
-    router.get("/hamburguesas", controller.getHamburguesaList);
-    router.get("/hamburguesas/:id", controller.getHamburguesaById);
+    router.get("/hamburguesa/:id", controller.getHamburguesabyId);
+
 
 
     app.use("/", router);

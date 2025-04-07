@@ -3,11 +3,13 @@ module.exports = (app) => {
   const controller = require("../controllers/restaurante.controller");
 
   router.get("/", controller.getRestaurantList);
+  router.get("/restaurant/:id", controller.getRestaurantById);
+  
+
+
+  // rutas JSON
   router.get("/restaurantes", controller.getRestaurantListJSON);
 
-  router.get("/ruta-ejemplo", (req, res) => {
-    res.send("Ruta funcionando correctamente");
-  });
 
   app.use("/", router);
 };

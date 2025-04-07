@@ -6,7 +6,7 @@
                 <p style="color: white">
                     ¡Disfruta de las mejores hamburguesas de la ciudad!
                 </p>
-                <img src="/uploads/Bwlogo.png" alt="logo" class="img-fluid mx-auto d-block"/>
+                <img src="/uploads/Bwlogo.png" alt="logo" class="img-fluid mx-auto d-block" />
             </div>
         </div>
         <div class="container-fluid" id="restaurante-container">
@@ -14,7 +14,6 @@
                 <h2>Participantes este año</h2>
                 <p>Este año contamos con la participación de los siguientes restaurantes:</p>
             </div>
-
             <div id="restaurantes-grid">
                 <% restaurantes.forEach(restaurante=> { %>
                     <div class="restaurante-card">
@@ -24,15 +23,15 @@
                                 <%= restaurante.nombre %>
                             </h3>
                             <p class="restaurante-card-desc">
-                                <%= restaurante.descripcion || 'Descubre nuestras deliciosas hamburguesas' %>
+                                <%= 'Descubre nuestras deliciosas hamburguesas' %>
                             </p>
-                            <a href="/restaurant/<%= restaurante.id %>" class="btn restaurante-card-btn">Ver
-                                hamburguesas</a>
+                            <a href="/restaurant/<%= restaurante.id_restaurant %>"
+                                class="btn restaurante-card-btn">Ver hamburguesas</a>
                         </div>
                     </div>
                     <% }); %>
             </div>
         </div>
-        include('../../components/footer.ejs') %>
+        <%- include('../../components/footer.ejs') %>
     </div>
     </div>

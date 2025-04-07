@@ -1,0 +1,64 @@
+<%- include('../../components/header.ejs') %>
+
+    <div class="container my-5">
+        <!-- Tarjeta de Hamburguesa -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card mb-4 border-0 shadow-lg">
+                    <div class="row g-0">
+                        <!-- Columna de la Imagen -->
+                        <div class="col-md-6">
+                            <img src="/<%= hamburguesa.foto %>" class="img-fluid rounded-start h-100 object-fit-cover"
+                                alt="<%= hamburguesa.nombre %>">
+                        </div>
+                        <!-- Columna de la Información -->
+                        <div class="col-md-6 bg-dark text-white">
+                            <div class="card-body p-4 h-100 d-flex flex-column">
+                                <h1 class="card-title mb-3 text-orange">
+                                    <%= hamburguesa.nombre %>
+                                </h1>
+                                <p class="card-text flex-grow-1">
+                                    <%= hamburguesa.descripcion %>
+                                </p>
+                                <div class="mt-auto">
+                                    <h4 class="text-success mb-4">$<%= hamburguesa.precio %>
+                                    </h4>
+                                    <form action="/calificaciones" method="POST">
+                                        <input type="hidden" name="id_hamburguesa"
+                                            value="<%= hamburguesa.id_hamburguesa %>" id="id_hamburguesa">
+                                        <div class="rating-section border-top pt-3">
+                                            <h5 class="mb-3">¿Ya la probaste?</h5>
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" id="probadaCheck">
+                                                <label class="form-check-label" for="probadaCheck">Marcar como probada
+                                                </label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Calificación (1-5)</label>
+                                                <div class="star-rating mb-2">
+                                                    <i class="bi bi-star-fill star" data-value="1"></i>
+                                                    <i class="bi bi-star-fill star" data-value="2"></i>
+                                                    <i class="bi bi-star-fill star" data-value="3"></i>
+                                                    <i class="bi bi-star-fill star" data-value="4"></i>
+                                                    <i class="bi bi-star-fill star" data-value="5"></i>
+                                                </div>
+                                                <input type="hidden" id="ratingValue" name="rating" value="">
+                                            </div>
+                                            <button id="submit" class="btn btn-warning w-100">Enviar
+                                                Calificación</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="/restaurant/<%= hamburguesa.restaurante_id %>" class="btn btn-outline-secondary">
+                        ← Volver al restaurante
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../components/footer.ejs') %>
