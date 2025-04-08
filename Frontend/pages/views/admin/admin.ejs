@@ -1,0 +1,47 @@
+<%- include('../../../components/header.ejs') %>
+
+    <div class="admin-container">
+        <div class="sidebar">
+            <h2 class="sidebar-title">Burger Week 2025</h2>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="#" class="menu-link" data-section="restaurantes"><i class="bi bi-shop"></i>
+                        Restaurantes</a>
+                </li>
+                <li><a href="#" class="menu-link" data-section="hamburguesas"><i class="bi bi-egg-fried"></i>
+                        Hamburguesas</a></li>
+                <li><a href="#" class="menu-link" data-section="calificaciones"><i class="bi bi-star-fill"></i>
+                        Calificaciones</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="main-content-header">
+                <h1>Bienvenido al Panel de Administrador</h1>
+                <p>Selecciona una sección del menú para comenzar</p>
+            </div>
+
+            <div class="content" id="dynamic-content">
+
+
+                <div class="welcome-message">
+                    <img src="/images/Welcome.png" alt="Welcome" class="welcome-image">
+                    <h2>Gestiona tu Burger Week 2025</h2>
+                    <p>Utiliza el menú lateral para administrar Restaurantes, hamburguesas, calificaciones de las
+                        hamburguesas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll(".menu-link").forEach(link => {
+            link.addEventListener("click", async (e) => {
+                e.preventDefault();
+                const section = link.getAttribute("data-section");
+                const response = await fetch(`/admin/section/${section}`);
+                const html = await response.text();
+                document.getElementById("dynamic-content").innerHTML = html;
+            });
+        });
+    </script>
+
+    <%- include('../../../components/footer.ejs') %>

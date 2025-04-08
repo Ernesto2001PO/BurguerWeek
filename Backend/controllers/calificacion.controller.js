@@ -8,8 +8,8 @@ exports.createCalificacion = async (req, res) => {
     console.log("Datos recibidos:", {
         hamburguesa_id,
         puntuacion, 
-        probada: typeof probada, // Debería ser 'boolean'
-        probada_value: probada // true/false
+        probada: typeof probada, 
+        probada_value: probada 
     });
 
     try {

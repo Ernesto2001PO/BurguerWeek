@@ -17,6 +17,7 @@ app.set("views", path.join(__dirname, "Frontend", "pages", "views"));
 
 
 
+
 // Middleware para parsear datos del cuerpo
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
@@ -24,6 +25,8 @@ app.use(express.json());
 // Servir archivos estáticos (CSS y JS)
 app.use("/css",express.static(path.join(__dirname, "Frontend", "public", "css")));
 app.use("/js",express.static(path.join(__dirname, "Frontend", "public", "js")));
+app.use("/images",express.static(path.join(__dirname, "Frontend", "public", "images")));
+
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 

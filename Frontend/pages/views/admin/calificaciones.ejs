@@ -1,0 +1,38 @@
+<div class="content-header">calificacioness</div>
+<div class="content-body">
+    <table>
+        <thead>
+            <tr>
+                <th> Hamburguesa</th>
+                <th>calificacion</th>
+                <th>Probada</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            <tr>
+                <% calificaciones.forEach(calificacion=> { %>
+
+
+                    <td>
+                        <%= calificacion.puntuacion %>
+                    </td>
+                   
+                    <td>
+                        <%= calificacion.hamburguesa_id %>
+                    </td>
+                    <td>
+                        <%= calificacion.probada %>
+                    </td>
+
+
+                    <td>
+                        <button id="editar">Editar</button>
+                        <button id="eliminar">Eliminar</button>
+                    </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

@@ -33,7 +33,7 @@
                                                 <label class="form-check-label" for="probadaCheck">Marcar como probada
                                                 </label>
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3 d-none" id="ratingSection">
                                                 <label class="form-label">Calificación (1-5)</label>
                                                 <div class="star-rating mb-2">
                                                     <i class="bi bi-star-fill star" data-value="1"></i>
@@ -44,6 +44,16 @@
                                                 </div>
                                                 <input type="hidden" id="ratingValue" name="rating" value="">
                                             </div>
+                                            <script>
+                                                document.getElementById('probadaCheck').addEventListener('change', function () {
+                                                    const ratingSection = document.getElementById('ratingSection');
+                                                    if (this.checked) {
+                                                        ratingSection.classList.remove('d-none');
+                                                    } else {
+                                                        ratingSection.classList.add('d-none');
+                                                    }
+                                                });
+                                            </script>
                                             <button id="submit" class="btn btn-warning w-100">Enviar
                                                 Calificación</button>
                                         </div>

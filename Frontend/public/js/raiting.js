@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
             rating.value = valor
 
 
-
             star.forEach((star, index) => {
                 if (index < value) {
                     star.classList.add('active');
