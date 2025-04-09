@@ -17,7 +17,9 @@
             <div id="restaurantes-grid">
                 <% restaurantes.forEach(restaurante=> { %>
                     <div class="restaurante-card">
-                        <img src="<%= restaurante.logo %>" class="restaurante-card-img" alt="<%= restaurante.nombre %>">
+                        <a href="/restaurant/<%= restaurante.id_restaurant %>">
+                            <img src="<%= restaurante.logo %>" class="restaurante-card-img" alt="<%= restaurante.nombre %>">
+                        </a>
                         <div class="restaurante-card-body">
                             <h3 class="restaurante-card-title">
                                 <%= restaurante.nombre %>
@@ -25,8 +27,8 @@
                             <p class="restaurante-card-desc">
                                 <%= 'Descubre nuestras deliciosas hamburguesas' %>
                             </p>
-                            <a href="/restaurant/<%= restaurante.id_restaurant %>"
-                                class="btn restaurante-card-btn">Ver hamburguesas</a>
+                            <a href="/restaurant/<%= restaurante.id_restaurant %>" class="btn restaurante-card-btn">Ver
+                                hamburguesas</a>
                         </div>
                     </div>
                     <% }); %>

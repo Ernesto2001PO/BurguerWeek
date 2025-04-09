@@ -1,5 +1,5 @@
 <%- include('../../components/header.ejs') %>
-<script src="/js/raiting.js"></script>
+    <script src="/js/raiting.js"></script>
 
 
     <div class="container my-5">
@@ -8,12 +8,10 @@
             <div class="col-lg-8">
                 <div class="card mb-4 border-0 shadow-lg">
                     <div class="row g-0">
-                        <!-- Columna de la Imagen -->
                         <div class="col-md-6">
                             <img src="/<%= hamburguesa.foto %>" class="img-fluid rounded-start h-100 object-fit-cover"
                                 alt="<%= hamburguesa.nombre %>">
                         </div>
-                        <!-- Columna de la Información -->
                         <div class="col-md-6 bg-dark text-white">
                             <div class="card-body p-4 h-100 d-flex flex-column">
                                 <h1 class="card-title mb-3 text-orange">
@@ -38,11 +36,11 @@
                                             <div class="mb-3 d-none" id="ratingSection">
                                                 <label class="form-label">Calificación (1-5)</label>
                                                 <div class="star-rating mb-2">
-                                                    <i class="bi bi-star-fill star" data-value="1"></i>
-                                                    <i class="bi bi-star-fill star" data-value="2"></i>
-                                                    <i class="bi bi-star-fill star" data-value="3"></i>
-                                                    <i class="bi bi-star-fill star" data-value="4"></i>
-                                                    <i class="bi bi-star-fill star" data-value="5"></i>
+                                                    <i class="bi bi-star star" data-value="1"></i>
+                                                    <i class="bi bi-star star" data-value="2"></i>
+                                                    <i class="bi bi-star star" data-value="3"></i>
+                                                    <i class="bi bi-star star" data-value="4"></i>
+                                                    <i class="bi bi-star star" data-value="5"></i>
                                                 </div>
                                                 <input type="hidden" id="ratingValue" name="rating" value="">
                                             </div>
