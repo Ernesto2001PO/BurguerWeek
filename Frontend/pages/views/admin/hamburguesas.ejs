@@ -10,6 +10,7 @@
                     <th>Nombre</th>
                     <th>Descripcion </th>
                     <th>Precio</th>
+                    <th>Restaurante</th>
                     <th>Acciones</th>
                 </tr>
 
@@ -30,11 +31,23 @@
                         <td>
                             <%= hamburguesa.precio %>
                         </td>
+
+                        <td>
+                            <% 
+                                restaurante=restaurantes.find(rest=> rest.id_restaurant === hamburguesa.restaurante_id);
+                                %>
+                                <%= restaurante ? restaurante.nombre : 'Restaurante no encontrado' %>
+                        </td>
+
                         <td>
                             <a href="/admin/hamburguesas/editar/<%= hamburguesa.id_hamburguesa %>"
                                 class="btn btn-success">Editar</a>
-                            <button id="eliminar" class="btn btn-danger">Eliminar</button>
+
+                            <form action="/admin/hamburguesas/eliminar/<%= hamburguesa.id_hamburguesa %>" method="POST"
+                                onsubmit="return confirm('¿Está seguro de que desea eliminar la hamburguesa ?');">
+                                <button id="eliminar" class="btn btn-danger">Eliminar</button>
                         </td>
+                        </form>
                 </tr>
                 <% }); %>
             </tbody>

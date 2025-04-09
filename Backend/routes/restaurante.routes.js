@@ -7,8 +7,6 @@ module.exports = (app) => {
   
 
 
-  // rutas JSON
-  router.get("/restaurantes", controller.getRestaurantListJSON);
 
 
   app.use("/", router);

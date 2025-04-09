@@ -5,6 +5,7 @@ Calificacion.associate = (models) => {
   Calificacion.belongsTo(models.Hamburguesa, {
     foreignKey: "hamburguesa_id",
     as: "hamburguesa",
+    onDelete: "CASCADE",
   });
 };
 
@@ -13,10 +14,9 @@ Hamburguesa.associate = (models) => {
   Hamburguesa.hasMany(models.Calificacion, {
     foreignKey: "hamburguesa_id",
     as: "calificaciones",
+    onDelete: "CASCADE",
   });
 };
-
-
 
 
 

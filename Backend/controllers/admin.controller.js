@@ -1,6 +1,6 @@
 const db = require("../models/");
 const path = require("path");
-const restaurante = require("../models/restaurante");
+const fs = require("fs");
 
 
 
@@ -58,9 +58,11 @@ exports.mostrarRestaurantes = async (req, res) => {
 exports.mostrarHamburguesas = async (req, res) => {
     try {
         console.log("Obteniendo lista de hamburguesas...");
+        const restaurantes = await db.Restaurante.findAll();
+
         const hamburguesas = await db.Hamburguesa.findAll();
         console.log("Hamburguesas encontradas:", hamburguesas);
-        res.render("admin/hamburguesas", { hamburguesas });
+        res.render("admin/hamburguesas", { hamburguesas, restaurantes });
     }
     catch (error) {
         console.error("Error al obtener hamburguesas:", error);
@@ -163,7 +165,7 @@ exports.getEditarRestaurante = async (req, res) => {
         res.status(500).send("Error al cargar los datos del restaurante");
     }
 };
-
+``
 exports.postEditarRestaurante = async (req, res) => {
     try {
         const restauranteId = req.params.id;
@@ -219,19 +221,21 @@ exports.deleteRestaurantes = async (req, res) => {
 
 
 
-exports.getCrearHamburguesa = (req, res) => {
+exports.getCrearHamburguesa = async (req, res) => {
+    try {
+        const restaurantes = await db.Restaurante.findAll();
+        const hamburguesas = await db.Hamburguesa.findAll();
 
-    db.Restaurante.findAll()
-        .then(restaurantes => {
-            console.log("Restaurantes encontrados:", restaurantes);
-            res.render("admin/crearHamburguesa", { restaurantes });
-        })
-        .catch(err => {
-            console.error("Error al obtener restaurantes:", err);
-            res.status(500).send("Error al cargar la página de creación de hamburguesa");
+        res.render("admin/crearHamburguesa", {
+            restaurantes: restaurantes,
+            hamburguesa: hamburguesas
         });
-
+    } catch (err) {
+        console.error("Error al obtener restaurantes:", err);
+        res.status(500).send("Error al cargar la página de creación de hamburguesa");
+    }
 };
+
 
 
 exports.postCrearHamburguesa = async (req, res) => {
@@ -313,6 +317,67 @@ exports.getEditarHamburguesa = async (req, res) => {
         res.status(500).send("Error al cargar los datos del restaurante");
     }
 };
+
+exports.postEditarHamburguesa = async (req, res) => {
+    try {
+        const hamburguesaId = req.params.id;
+        const { nombre, precio, descripcion, id_restaurant } = req.body;
+
+        if (req.files && req.files.foto) {
+            const fotoFile = req.files.foto;
+            const uploadDir = path.join(__dirname, "..", "..", "uploads");
+            const imageName = `hamburguesa_${Date.now()}${path.extname(fotoFile.name)}`;
+            const imagePath = path.join(uploadDir, imageName);
+            const imageUrl = `uploads/${imageName}`;
+
+            await fotoFile.mv(imagePath);
+
+            await db.Hamburguesa.update(
+                { nombre, precio, descripcion, foto: imageUrl },
+                { where: { id_hamburguesa: hamburguesaId } }
+            );
+        } else {
+            await db.Hamburguesa.update(
+                { nombre, precio, descripcion },
+                { where: { id_hamburguesa: hamburguesaId } }
+            );
+        }
+
+        res.redirect("/admin");
+    } catch (err) {
+        console.error("Error al actualizar hamburguesa:", err);
+        res.status(500).send("Error en el servidor");
+    }
+}
+
+
+
+exports.deleteHamburguesa = async (req, res) => {
+    const hamburguesaId = req.params.id;
+
+    try {
+        const hamburguesa = await db.Hamburguesa.findByPk(hamburguesaId);
+        if (!hamburguesa) {
+            return res.status(404).send("Restaurante no encontrado");
+        }
+
+        await db.Calificacion.destroy({
+            where: { hamburguesa_id: hamburguesaId },
+        });
+
+
+        await db.Hamburguesa.destroy({ where: { id_hamburguesa: hamburguesaId } });
+
+        console.log("Hamburguesa eliminado exitosamente");
+        res.redirect("/admin");
+
+    } catch (err) {
+        console.error("Error al eliminar hamburguesa:", err);
+        res.status(500).send("Error al eliminar el hamburguesa");
+    }
+}
+
+
 
 
 

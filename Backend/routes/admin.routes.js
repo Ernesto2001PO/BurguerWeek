@@ -16,7 +16,7 @@ module.exports = (app) => {
 
     router.get("/restaurantes/editar/:id", controller.getEditarRestaurante);
     router.post("/restaurantes/editar/:id", controller.postEditarRestaurante);
-
+    
     router.post("/restaurantes/eliminar/:id", controller.deleteRestaurantes);
 
 
@@ -24,7 +24,9 @@ module.exports = (app) => {
     router.post("/hamburguesas/crear", controller.postCrearHamburguesa);
 
     router.get("/hamburguesas/editar/:id", controller.getEditarHamburguesa);
-    router.post("/hamburguesas/editar/:id", controller.postEditarRestaurante);
+    router.post("/hamburguesa/editar/:id", controller.postEditarHamburguesa);
+
+    router.post("/hamburguesas/eliminar/:id", controller.deleteHamburguesa);
 
 
 
