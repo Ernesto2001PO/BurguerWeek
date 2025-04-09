@@ -10,14 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const valor = this.getAttribute('data-value')
             rating.value = valor
 
-
-            star.forEach((star, index) => {
-                if (index < value) {
-                    star.classList.add('active');
-                } else {
-                    star.classList.remove('active');
-                }
-            });
         })
     });
 

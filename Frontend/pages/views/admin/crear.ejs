@@ -1,0 +1,44 @@
+<%- include('../../../components/header.ejs') %>
+
+
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+</style>
+
+    <div class="container">
+        <h1>Crear Restaurante</h1>
+
+        <% if (typeof error !=='undefined' ) { %>
+            <div class="alert alert-danger">
+                <%= error %>
+            </div>
+            <% } %>
+
+                <form action="/admin/restaurantes/crear" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="logo">Logo:</label>
+                        <input type="file" id="logo" name="logo" class="form-control" accept="image/*" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+    </div>
+
+    <%- include('../../../components/footer.ejs') %>

@@ -1,0 +1,85 @@
+<%- include('../../../components/header.ejs') %>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+
+
+    <div class="container">
+        <h1>Editar Hamburguesa</h1>
+
+        <% if (typeof error !=='undefined' ) { %>
+            <div class="alert alert-danger">
+                <%= error %>
+            </div>
+            <% } %>
+
+                <form action="/admin/hamburguesa/editar/<%=hamburguesa.id_hamburguesa%>" method="POST"
+                    enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="logo">Foto:</label>
+                        <img src="/<%= hamburguesa.foto %>" alt="Hamburguesa actual" style="width: 100px; height: 100px;">
+
+                        <input type="file" id="foto" name="foto" class="form-control" accept="image/*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion:</label>
+                        <input type="text" id="descripcion" name="descripcion" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precio">Precio:</label>
+                        <input type="text" id="precio" name="precio" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_restaurant">Restaurante:</label>
+                        <select id="id_restaurant" name="id_restaurant" class="form-control" required>
+                            <option value="">Seleccione un restaurante</option>
+                            <% restaurantes.forEach(restaurante=> { %>
+                                <option value="<%= restaurante.id_restaurant %>">
+                                    <%= restaurante.nombre %>
+                                </option>
+                                <% }); %>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <%- include('../../../components/footer.ejs') %>

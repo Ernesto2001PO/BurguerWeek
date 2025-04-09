@@ -1,91 +1,42 @@
 <div class="content-header">hamburguesass</div>
-<button onclick="mostrarFormulariohamburguesas()">Crear hamburguesas</button>
-<div class="content-body">
-    <table>
-        <thead>
-            <tr>
-                <th>Logo</th>
-                <th>Nombre</th>
-                <th>Descripcion </th>
-                <th>Precio</th>
-                <th> hamburguesas</th>
-            </tr>
+<button onclick="window.location.href='/admin/hamburguesas/crear'" class="btn btn-primary">Crear
+    Hamburguesas</button>
+<div id="content">
+    <div class="content-body">
+        <table>
+            <thead>
+                <tr>
+                    <th>Logo</th>
+                    <th>Nombre</th>
+                    <th>Descripcion </th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
 
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
 
-            <tr>
-                <% hamburguesas.forEach(hamburguesa=> { %>
-                    <td>
-                        <img src="/<%= hamburguesa.foto %>" alt="Logo" style="width: 50px; height: 50px;" />
-                    </td>
-                    <td>
-                        <%= hamburguesa.nombre %>
-                    </td>
-                    <td>
-                        <%= hamburguesa.descripcion %>
-                    </td>
-                    <td>
-                        <%= hamburguesa.precio %>
-                    </td>
-                    <td>
-                        <%= hamburguesa.hamburguesas_id %>
-                    </td>
-                    <td>
-                        <button id="editar">Editar</button>
-                        <button id="eliminar">Eliminar</button>
-                    </td>
-            </tr>
-            <% }); %>
-        </tbody>
-    </table>
-</div>
-
-
-<script>
-    function mostrarFormulariohamburguesas() {
-        const content = document.getElementById("content");
-        content.innerHTML = `
-<div class="content-header">Agregar hamburguesas</div>
-<div class="content-body">
-    <form id="agregar-hamburguesas-form">
-        <label for="logo">logo:</label>
-        <input type="text" id="logo" name="logo" required><br>
-        <label for="nombre">nombre:</label>
-        <input type="email" id="nombre" name="nombre" required><br>
-        label for="editar">editar:</label>
-        <input type="button" id="editar" name="editar" required><br>
-        <button type="submit">Guardar</button>
-    </form>
-</div>
-`;
-
-        document.getElementById("agregar-hamburguesas-form")
-            .addEventListener("submit", function (event) {
-                event.preventDefault();
-                const formData = new FormData(event.target);
-
-                const hamburguesasData = {
-                    logo_hamburguesas: formData.get("logo"),
-                    nombre: formData.get("nombre"),
-                    contrasena: formData.get("contrasena"),
-                };
-
-                fetch("http://localhost:4000/create/hamburguesass", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(hamburguesasData),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        alert("hamburguesas agregado exitosamente");
-                        cargarhamburguesass();
-                    })
-                    .catch((error) => {
-                        console.error("Error al agregar el hamburguesas:", error);
-                    });
-            });
-    }
-</script>
+                <tr>
+                    <% hamburguesas.forEach(hamburguesa=> { %>
+                        <td>
+                            <img src="/<%= hamburguesa.foto %>" alt="Logo" style="width: 50px; height: 50px;" />
+                        </td>
+                        <td>
+                            <%= hamburguesa.nombre %>
+                        </td>
+                        <td>
+                            <%= hamburguesa.descripcion %>
+                        </td>
+                        <td>
+                            <%= hamburguesa.precio %>
+                        </td>
+                        <td>
+                            <a href="/admin/hamburguesas/editar/<%= hamburguesa.id_hamburguesa %>"
+                                class="btn btn-success">Editar</a>
+                            <button id="eliminar" class="btn btn-danger">Eliminar</button>
+                        </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>

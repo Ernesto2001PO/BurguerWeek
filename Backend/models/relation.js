@@ -1,14 +1,25 @@
 const { Restaurante, Hamburguesa, Calificacion } = require("./index");
 
 // Relación: Una calificación pertenece a una hamburguesa
-Calificacion.belongsTo(Hamburguesa, {
-  foreignKey: "hamburguesa_id",
-});
+Calificacion.associate = (models) => {
+  Calificacion.belongsTo(models.Hamburguesa, {
+    foreignKey: "hamburguesa_id",
+    as: "hamburguesa",
+  });
+};
 
 // Relación: Una hamburguesa tiene muchas calificaciones
-Hamburguesa.hasMany(Calificacion, {
-  foreignKey: "hamburguesa_id",
-});
+Hamburguesa.associate = (models) => {
+  Hamburguesa.hasMany(models.Calificacion, {
+    foreignKey: "hamburguesa_id",
+    as: "calificaciones",
+  });
+};
+
+
+
+
+
 
 // Relación: Una hamburguesa pertenece a un restaurante
 Hamburguesa.belongsTo(Restaurante, {

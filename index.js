@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-
+const fileUpload = require("express-fileupload");
 const app = express();
 const port = 4000;
 const db = require("./Backend/models/");
@@ -19,13 +19,14 @@ app.set("views", path.join(__dirname, "Frontend", "pages", "views"));
 
 
 // Middleware para parsear datos del cuerpo
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(fileUpload());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Servir archivos estáticos (CSS y JS)
-app.use("/css",express.static(path.join(__dirname, "Frontend", "public", "css")));
-app.use("/js",express.static(path.join(__dirname, "Frontend", "public", "js")));
-app.use("/images",express.static(path.join(__dirname, "Frontend", "public", "images")));
+app.use("/css", express.static(path.join(__dirname, "Frontend", "public", "css")));
+app.use("/js", express.static(path.join(__dirname, "Frontend", "public", "js")));
+app.use("/images", express.static(path.join(__dirname, "Frontend", "public", "images")));
 
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -34,10 +35,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
 db.sequelize.sync({
-    force: false,
-  }).then(() => {
-    console.log("Base de datos sincronizada");
-  })
+  force: false,
+}).then(() => {
+  console.log("Base de datos sincronizada");
+})
   .catch((error) => {
     console.error("Error al sincronizar la base de datos:", error);
   });

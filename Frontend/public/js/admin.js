@@ -1,68 +1,52 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document
-    .getElementById("usuarios-link")
-    .addEventListener("click", cargarRestaurantes);
-  document
-    .getElementById("productos-link")
-    .addEventListener("click", cargarProductos);
-  cargarUsuarios();
-  document
-    .getElementById("categorias-link")
-    .addEventListener("click", cargarCategoria);
-
-  document
-    .getElementById("ordenes-link")
-    .addEventListener("click", cargarOrdenes);
-});
-
-function cargarRestaurantes(event) {
-  if (event) event.preventDefault();
+function mostrarFormulariorestaurante() {
   const content = document.getElementById("content");
   content.innerHTML = `
-        <div class="content-header">Restaurante</div>
-        <button onclick="mostrarFormularioUsuario()">Crear Usuario</button>
-        <div class="content-body">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Rol</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="usuarios-table">
-                </tbody>
-            </table>
-        </div>
-    `;
+<div class="content-header">Agregar restaurante</div>
+<div class="content-body">
+    <form id="agregar-restaurante-form">
+        <label for="logo">logo:</label>
+        <input type="text" id="logo" name="logo" required><br>
+        <label for="nombre">nombre:</label>
+        <input type="email" id="nombre" name="nombre" required><br>
+        label for="editar">editar:</label>
+        <input type="button" id="editar" name="editar" required><br>
+        <button type="submit">Guardar</button>
+    </form>
+</div>
+`;
 
-  fetch("http://localhost:3000/api/usuarios")
-    .then((response) => response.json())
-    .then((usuarios) => {
-      const usuariosTable = document.getElementById("usuarios-table");
-      usuariosTable.innerHTML = "";
+  document.getElementById("agregar-restaurante-form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
 
-      usuarios.forEach((usuario) => {
-        const row = `
-                    <tr>
-                        <td>${usuario.nombre_usuario}</td>
-                        <td>${usuario.correo}</td>
-                        <td>${usuario.rol}</td>
-                        <td>
-                          
-                            <button id="editar"    onclick="editarUsuario(${usuario.id})">Editar</button>
-                            <button  id="eliminar" onclick="eliminarUsuario(${usuario.id})">Eliminar</button>
-                        </td>
-                    </tr>
-                `;
-        usuariosTable.innerHTML += row;
-      });
-    })
-    .catch((error) => {
-      console.error("Error al cargar los usuarios:", error);
+      const restauranteData = {
+        logo_restaurante: formData.get("logo"),
+        nombre: formData.get("nombre"),
+        contrasena: formData.get("contrasena"),
+      };
+
+      fetch("http://localhost:4000/create/restaurantes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(restauranteData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert("restaurante agregado exitosamente");
+          cargarrestaurantes();
+        })
+        .catch((error) => {
+          console.error("Error al agregar el restaurante:", error);
+        });
     });
 }
+
+
+
+
 
 function mostrarFormularioUsuario() {
   const content = document.getElementById("content");

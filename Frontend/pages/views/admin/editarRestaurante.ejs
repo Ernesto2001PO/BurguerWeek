@@ -1,0 +1,38 @@
+<%- include('../../../components/header.ejs') %>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+
+    <div class="container">
+        <h1>Editar Restaurante</h1>
+                <form action="/admin/restaurantes/editar/<%= restaurante.id_restaurant %>" method="POST"
+                    enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control"
+                            value="<%= restaurante.nombre %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="logo">Logo:</label>
+                        <input type="file" id="logo" name="logo" class="form-control" accept="image/*">
+                        <img src="/<%= restaurante.logo %>" alt="Logo actual" style="width: 100px; height: 100px;">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </form>
+    </div>
+
+    <%- include('../../../components/footer.ejs') %>
