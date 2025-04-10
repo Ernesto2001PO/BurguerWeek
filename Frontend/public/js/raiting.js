@@ -1,17 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector('form');
-    const stars = document.querySelectorAll('.star'); // Corregido: `stars` en lugar de `starts`
+    const stars = document.querySelectorAll('.star'); 
     const rating = document.querySelector('#ratingValue');
     const probada = document.getElementById('probadaCheck');
     const ratingSection = document.getElementById('ratingSection');
 
-    // Mostrar/ocultar la sección de calificación según el checkbox
     probada.addEventListener('change', function () {
         if (this.checked) {
             ratingSection.classList.remove('d-none');
         } else {
             ratingSection.classList.add('d-none');
-            rating.value = ''; // Reinicia el valor de la calificación si se desmarca
+            rating.value = ''; 
             stars.forEach(star => {
                 star.classList.remove('bi-star-fill', 'text-warning');
                 star.classList.add('bi-star');
@@ -19,13 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Manejar el clic en las estrellas
     stars.forEach(star => {
         star.addEventListener('click', () => {
             const value = star.getAttribute('data-value');
             rating.value = value;
 
-            // Rellenar las estrellas hasta la seleccionada
             stars.forEach(s => {
                 if (s.getAttribute('data-value') <= value) {
                     s.classList.remove('bi-star');
@@ -38,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Manejar el envío del formulario
+    
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
